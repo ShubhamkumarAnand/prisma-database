@@ -16,7 +16,6 @@ model User {
   age            Int
   email          String           @unique
   role           Role             @default(BASIC)
-  prefrences     Json
   writtenPosts   Post[]           @relation("writtenPosts")
   favoritePost   Post[]           @relation("favoritePost")
   userPrefrences userPrefrences[]
