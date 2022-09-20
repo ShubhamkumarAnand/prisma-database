@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 async function main() {}
 
 main()
-	.catch((r) => {
+	.catch((e) => {
 		console.error(e.message)
 	})
 	.finally(async () => {
