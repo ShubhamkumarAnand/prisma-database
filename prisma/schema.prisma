@@ -15,11 +15,14 @@ model User {
   name           String
   age            Int
   email          String           @unique
-  isAdmin        Boolean
+  role           Role             @default(BASIC)
   prefrences     Json
   writtenPosts   Post[]           @relation("writtenPosts")
   favoritePost   Post[]           @relation("favoritePost")
   userPrefrences userPrefrences[]
+
+  @@unique([age, name])
+  @@index([email])
 }
 
 model userPrefrences {
@@ -46,4 +49,9 @@ model Category {
   id   String @id @default(uuid())
   name String @unique
   post Post[]
+}
+
+enum Role {
+  BASIC
+  ADMIN
 }
