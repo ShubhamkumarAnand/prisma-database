@@ -13,6 +13,7 @@ datasource db {
 model User {
   id             String           @id @default(uuid())
   name           String
+  age            Int
   email          String           @unique
   isAdmin        Boolean
   prefrences     Json
@@ -30,7 +31,8 @@ model userPrefrences {
 
 model Post {
   id            String     @id @default(uuid())
-  rating        Float
+  title         String
+  averageRating Float
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   author        User       @relation("writtenPosts", fields: [authorId], references: [id])
@@ -42,5 +44,6 @@ model Post {
 
 model Category {
   id   String @id @default(uuid())
+  name String @unique
   post Post[]
 }
