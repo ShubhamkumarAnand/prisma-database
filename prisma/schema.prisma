@@ -16,7 +16,8 @@ model User{
   email String @unique
   isAdmin Boolean
   prefrences Json
-  posts Post[]
+  writtenPosts Post[] @relation("writtenPosts")
+  favoritePost Post[] @relation("favoritePost")
 }
 
 model Post{
@@ -24,6 +25,8 @@ model Post{
   rating Float
   createdAt DateTime
   updatedAt DateTime
-  author User @relation(fields: [authorId], references: [id])
+  author User @relation("writtenPosts", fields: [authorId], references: [id])
   authorId String
+  favoratedBy User @relation("favoritePost", fields: [favoratedById], references: [id])
+  favoratedById String
 }
