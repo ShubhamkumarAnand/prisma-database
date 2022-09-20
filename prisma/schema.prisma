@@ -11,20 +11,20 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  name           String
-  age            Int
-  email          String           @unique
-  role           Role             @default(BASIC)
-  writtenPosts   Post[]           @relation("writtenPosts")
-  favoritePost   Post[]           @relation("favoritePost")
-  userPrefrences userPrefrences[]
+  id              String            @id @default(uuid())
+  name            String
+  age             Int
+  email           String            @unique
+  role            Role              @default(BASIC)
+  writtenPosts    Post[]            @relation("writtenPosts")
+  favoritePost    Post[]            @relation("favoritePost")
+  userPreferences userPreferences[]
 
   @@unique([age, name])
   @@index([email])
 }
 
-model userPrefrences {
+model userPreferences {
   id           String  @id @default(uuid())
   emailUpdates Boolean
   user         User    @relation(fields: [userId], references: [id])
@@ -39,8 +39,8 @@ model Post {
   updatedAt     DateTime   @updatedAt
   author        User       @relation("writtenPosts", fields: [authorId], references: [id])
   authorId      String
-  favoratedBy   User?      @relation("favoritePost", fields: [favoratedById], references: [id])
-  favoratedById String?
+  favoritesBy   User?      @relation("favoritePost", fields: [favoritesById], references: [id])
+  favoritesById String?    @map("favoritesById")
   category      Category[]
 }
 
