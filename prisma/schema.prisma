@@ -11,20 +11,28 @@ datasource db {
 }
 
 model User {
+  id             String           @id @default(uuid())
+  name           String
+  email          String           @unique
+  isAdmin        Boolean
+  prefrences     Json
+  writtenPosts   Post[]           @relation("writtenPosts")
+  favoritePost   Post[]           @relation("favoritePost")
+  userPrefrences userPrefrences[]
+}
+
+model userPrefrences {
   id           String  @id @default(uuid())
-  name         String
-  email        String  @unique
-  isAdmin      Boolean
-  prefrences   Json
-  writtenPosts Post[]  @relation("writtenPosts")
-  favoritePost Post[]  @relation("favoritePost")
+  emailUpdates Boolean
+  user         User    @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 model Post {
   id            String     @id @default(uuid())
   rating        Float
-  createdAt     DateTime
-  updatedAt     DateTime
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   author        User       @relation("writtenPosts", fields: [authorId], references: [id])
   authorId      String
   favoratedBy   User?      @relation("favoritePost", fields: [favoratedById], references: [id])
