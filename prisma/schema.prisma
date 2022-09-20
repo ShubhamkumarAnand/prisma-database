@@ -27,6 +27,6 @@ model Post{
   updatedAt DateTime
   author User @relation("writtenPosts", fields: [authorId], references: [id])
   authorId String
-  favoratedBy User @relation("favoritePost", fields: [favoratedById], references: [id])
-  favoratedById String
+  favoratedBy User? @relation("favoritePost", fields: [favoratedById], references: [id])
+  favoratedById String?
 }
