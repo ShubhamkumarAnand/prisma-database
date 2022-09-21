@@ -14,8 +14,13 @@ async function main() {
 				},
 			},
 		},
-		include: {
-			userPreference: true,
+		select: {
+			name: true,
+			userPreference: {
+				select: {
+					id: true,
+				},
+			},
 		},
 	})
 	console.log(user)
